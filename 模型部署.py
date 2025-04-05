@@ -67,16 +67,27 @@ feature_ranges = {
     "家庭支持": {"type": "numerical", "min": 0, "max": 10, "default": 0},
 }
 
-# 英文特征名称
-feature_names = [
-    "Age", "Weight", "Place of Residence", "Marital Status", "Employment Status", "Educational level", "Method of Medical Payment",
-    "Number of Pregnancies", "Number of Deliveries", "Method of Delivery", "Adverse Obstetric History",
-    "Experience of Pregnancy Termination", "Gestational Week", "Pregnancy Complications", "Pregnancy Comorbidities",
-    "Feeding Method", "Newborn Defects or Diseases", "Monthly Per Capita Family Income", "Painless Childbirth",
-    "Intrapartum Pain", "Postpartum Pain", "Postpartum Baby Care Method", "Sleep Quality", "Nighttime Sleep Duration",
-    "Fatigue Level", "Physical Activity Level During Pregnancy", "Depression", "Anxiety", "Intrusive Rumination",
-    "Deliberate Rumination", "Resilience", "Family Support"
-]
+# 创建分类特征的映射字典
+categorical_mappings = {
+    "居住地": {"农村": 0, "城市": 1},
+    "婚姻状况": {"未婚": 0, "已婚": 1},
+    "就业情况": {"无固定工作": 0, "有固定工作": 1},
+    "学历": {"初中及以下": 0, "高中": 1, "专科": 2, "本科及以上": 3},
+    "医疗费用支付方式": {"自费": 0, "城镇职工基本医疗保险": 1, "城乡居民基本医疗保险": 2},
+    "分娩方式": {"剖宫产": 0, "顺产转剖宫产": 1, "顺产": 2},
+    "不良孕产史": {"否": 0, "是": 1},
+    "终止妊娠经历": {"否": 0, "是": 1},
+    "妊娠合并症": {"否": 0, "是": 1},
+    "妊娠并发症": {"否": 0, "是": 1},
+    "喂养方式": {"人工喂养": 0, "纯母乳喂养": 1, "混合喂养": 2},
+    "新生儿是否有出生缺陷或疾病": {"否": 0, "是": 1},
+    "家庭人均月收入": {"＜5000": 0, "≥5000": 1},
+    "使用无痛分娩技术": {"否": 0, "是": 1},
+    "产后照顾婴儿方式": {"自己照顾": 0, "丈夫帮忙": 1, "公婆帮忙": 2, "父母帮忙": 3, "保姆照顾": 4},
+    "近1月睡眠质量": {"很好": 0, "较好": 1, "较差": 2, "很差": 3},
+    "近1月困倦程度": {"无": 0, "＜1次/周": 1, "1~2/周": 2, "≥3次/周": 3},
+    "孕期体育活动等级": {"基本不锻炼": 0, "小锻炼量": 1, "中等锻炼量": 2, "大锻炼量": 3},
+}
 
 # 动态生成输入项
 st.sidebar.header("变量输入区域")
@@ -96,6 +107,9 @@ for feature, properties in feature_ranges.items():
             label=f"{feature} (Select a value)",
             options=properties["options"],
         )
+        # 将分类特征的字符串值转换为数值
+        if feature in categorical_mappings:
+            value = categorical_mappings[feature][value]
     feature_values.append(value)
 
 # 转换为模型输入格式
