@@ -54,6 +54,18 @@ feature_ranges = {
     "心理弹性": {"type": "numerical", "min": 6, "max": 30, "default": 6},
     "家庭支持": {"type": "numerical", "min": 0, "max": 10, "default": 0},
 }
+
+# 英文特征名称
+feature_names = [
+    "Age", "Weight", "Residence", "Marriage", "Employment", "Education", "Insurance",
+    "Pregnancies", "Deliveries", "Delivery Method", "Adverse Pregnancy History",
+    "Terminated Pregnancy", "Pregnancy Weeks", "Comorbidities", "Complications",
+    "Feeding", "Newborn Defects", "Monthly Income Per Capita", "Painless Childbirth",
+    "Intra_pain", "Post_Pain", "Care Methods", "Sleep Quality", "Sleep Time",
+    "Fatigue", "Activity", "Dep", "Anx", "Intrusive Rumination",
+    "Purposeful Rumination", "Resilience", "Fami_Supp"
+]
+
 # 动态生成输入项
 st.sidebar.header("变量输入区域")
 st.sidebar.write("请输入变量值：")
@@ -95,50 +107,14 @@ if st.button("预测"):
 
     shap_values_sample = shap_values[0]
 
-    # 定义特征名称和其对应的值
-    features_with_values = np.array([
-        f"Age={feature_values[0]}",
-        f"Weight={feature_values[1]}",
-        f"Residence={feature_values[2]}",
-        f"Marriage={feature_values[3]}",
-        f"Employment={feature_values[4]}",
-        f"Education={feature_values[5]}",
-        f"Insurance={feature_values[6]}",
-        f"Pregnancies={feature_values[7]}",
-        f"Deliveries={feature_values[8]}",
-        f"Delivery Method={feature_values[9]}",
-        f"Adverse Pregnancy History={feature_values[10]}",
-        f"Terminated Pregnancy={feature_values[11]}",
-        f"Pregnancy Weeks={feature_values[12]}",
-        f"Comorbidities={feature_values[13]}",
-        f"Complications={feature_values[14]}",
-        f"Feeding={feature_values[15]}",
-        f"Newborn Defects={feature_values[16]}",
-        f"Monthly Income Per Capita={feature_values[17]}",
-        f"Painless Childbirth={feature_values[18]}",
-        f"Intra_pain={feature_values[19]}",
-        f"Post_Pain={feature_values[20]}",
-        f"Care Methods={feature_values[21]}",
-        f"Sleep Quality={feature_values[22]}",
-        f"Sleep Time={feature_values[23]}",
-        f"Fatigue={feature_values[24]}",
-        f"Activity={feature_values[25]}",
-        f"Dep={feature_values[26]}",
-        f"Anx={feature_values[27]}",
-        f"Intrusive Rumination={feature_values[28]}",
-        f"Purposeful Rumination={feature_values[29]}",
-        f"Resilience={feature_values[30]}",
-        f"Fami_Supp={feature_values[31]}"
-    ])
-
     # 创建SHAP瀑布图，确保中文显示
-    plt.figure(figsize=(20, 6))  # 设置图形尺寸为20x6英寸
+    plt.figure(figsize=(16, 6))  # 设置图形尺寸为16x6英寸
     shap.waterfall_plot(
         shap.Explanation(
             values=shap_values_sample,
             base_values=base_value,
             data=features[0],
-            feature_names=list(feature_ranges.keys())
+            feature_names=feature_names
         ),
         max_display=10  # 限制显示的特征数量
     )
