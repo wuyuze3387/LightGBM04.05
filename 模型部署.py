@@ -17,7 +17,7 @@ model = joblib.load(model_path)
 # 设置页面配置和标题
 st.set_page_config(layout="wide", page_title="轻量级梯度提升回归模型预测与 SHAP 可视化", page_icon="💕👩‍⚕️🏥")
 st.title("💕👩‍⚕️🏥 轻量级梯度提升回归模型预测与 SHAP 可视化")
-st.write("通过输入所有变量的值进行单个样本分娩心理创伤的风险预测，可以得到该样本罹患分娩心理创伤的概率，并结合 SHAP 力图分析结果，有助于临床医护人员了解具体的风险因素和保护因素。")
+st.write("通过输入所有变量的值进行单个样本分娩心理创伤的风险预测，可以得到该样本罹患分娩心理创伤的概率，并结合 SHAP 瀑布图分析结果，有助于临床医护人员了解具体的风险因素和保护因素。")
 
 # 特征范围定义
 feature_ranges = {
@@ -131,16 +131,18 @@ if st.button("预测"):
         f"Fami_Supp={feature_values[31]}"
     ])
 
-    # 创建SHAP力图，确保中文显示
+    # 创建SHAP瀑布图，确保中文显示
     plt.figure(figsize=(20, 6))  # 设置图形尺寸为20x6英寸
-    shap.force_plot(
-        base_value,
-        shap_values_sample,
-        features_with_values,
-        matplotlib=True,  # 使用Matplotlib显示
-        show=False  # 不显示默认的力图窗口
+    shap.waterfall_plot(
+        shap.Explanation(
+            values=shap_values_sample,
+            base_values=base_value,
+            data=features[0],
+            feature_names=list(feature_ranges.keys())
+        ),
+        max_display=10  # 限制显示的特征数量
     )
 
-    # 保存SHAP力图并展示
-    plt.savefig("shap_force_plot.png", bbox_inches='tight', dpi=600)
-    st.image("shap_force_plot.png")
+    # 保存SHAP瀑布图并展示
+    plt.savefig("shap_waterfall_plot.png", bbox_inches='tight', dpi=600)
+    st.image("shap_waterfall_plot.png")
