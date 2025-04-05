@@ -57,13 +57,13 @@ feature_ranges = {
 
 # 英文特征名称
 feature_names = [
-    "Age", "Weight", "Residence", "Marriage", "Employment", "Education", "Insurance",
-    "Pregnancies", "Deliveries", "Delivery Method", "Adverse Pregnancy History",
-    "Terminated Pregnancy", "Pregnancy Weeks", "Comorbidities", "Complications",
-    "Feeding", "Newborn Defects", "Monthly Income Per Capita", "Painless Childbirth",
-    "Intra_pain", "Post_Pain", "Care Methods", "Sleep Quality", "Sleep Time",
-    "Fatigue", "Activity", "Dep", "Anx", "Intrusive Rumination",
-    "Purposeful Rumination", "Resilience", "Fami_Supp"
+    "Age", "Weight", "Place of Residence", "Marital Status", "Employment Status", "Educational level", "Method of Medical Payment",
+    "Number of Pregnancies", "Number of Deliveries", "Method of Delivery", "Adverse Obstetric History",
+    "Experience of Pregnancy Termination", "Gestational Week", "Pregnancy Complications", "Pregnancy Comorbidities",
+    "Feeding Method", "Newborn Defects or Diseases", "Monthly Per Capita Family Income", "Painless Childbirth",
+    "Intrapartum Pain", "Postpartum Pain", "Postpartum Baby Care Method", "Sleep Quality", "Nighttime Sleep Duration",
+    "Fatigue Level", "Physical Activity Level During Pregnancy", "Depression", "Anxiety", "Intrusive Rumination",
+    "Deliberate Rumination", "Resilience", "Family Support"
 ]
 
 # 动态生成输入项
