@@ -59,6 +59,7 @@ st.sidebar.header("变量输入区域")
 st.sidebar.write("请输入变量值：")
 
 feature_values = []
+feature_names = []
 for feature, properties in feature_ranges.items():
     if properties["type"] == "numerical":
         value = st.sidebar.number_input(
@@ -73,6 +74,7 @@ for feature, properties in feature_ranges.items():
             options=properties["options"],
         )
     feature_values.append(value)
+    feature_names.append(feature)
 
 # 转换为模型输入格式
 features = np.array([feature_values])
@@ -96,7 +98,8 @@ if st.button("预测"):
     shap.force_plot(
         base_value, 
         shap_values_sample, 
-        feature_values, 
+        features[0], 
+        feature_names=feature_names,  # 传递特征名称
         matplotlib=True,  # 使用Matplotlib显示
         show=False  # 不显示默认的力图窗口
     )
