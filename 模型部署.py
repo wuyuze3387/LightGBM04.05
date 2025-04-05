@@ -20,18 +20,6 @@ st.title("💕👩‍⚕️🏥 轻量级梯度提升回归模型预测与 SHAP 
 st.write("通过输入所有变量的值进行单个样本分娩心理创伤的风险预测，可以得到该样本罹患分娩心理创伤的概率，并结合 SHAP 瀑布图分析结果，有助于临床医护人员了解具体的风险因素和保护因素。")
 
 # 特征范围定义
-feature_names = [
-    "年龄", "体重", "居住地", "婚姻状况", "就业情况", "学历",
-    "医疗费用支付方式", "怀孕次数", "分娩次数", "分娩方式",
-    "不良孕产史", "终止妊娠经历", "妊娠周数", "妊娠合并症",
-    "妊娠并发症", "喂养方式", "新生儿是否有出生缺陷或疾病",
-    "家庭人均月收入", "使用无痛分娩技术", "产时疼痛", "产后疼痛",
-    "产后照顾婴儿方式", "近1月睡眠质量", "近1月夜间睡眠时长",
-    "近1月困倦程度", "孕期体育活动等级", "抑郁", "焦虑",
-    "侵入性反刍性沉思", "目的性反刍性沉思", "心理弹性", "家庭支持"
-]
-
-# 特征范围定义
 feature_ranges = {
     "年龄": {"type": "numerical", "min": 18, "max": 42, "default": 18},
     "体重": {"type": "numerical", "min": 52, "max": 91, "default": 52},
@@ -66,17 +54,6 @@ feature_ranges = {
     "心理弹性": {"type": "numerical", "min": 6, "max": 30, "default": 6},
     "家庭支持": {"type": "numerical", "min": 0, "max": 10, "default": 0},
 }
-
-# 英文特征名称
-feature_names = [
-    "Age", "Weight", "Place of Residence", "Marital Status", "Employment Status", "Educational level", "Method of Medical Payment",
-    "Number of Pregnancies", "Number of Deliveries", "Method of Delivery", "Adverse Obstetric History",
-    "Experience of Pregnancy Termination", "Gestational Week", "Pregnancy Complications", "Pregnancy Comorbidities",
-    "Feeding Method", "Newborn Defects or Diseases", "Monthly Per Capita Family Income", "Painless Childbirth",
-    "Intrapartum Pain", "Postpartum Pain", "Postpartum Baby Care Method", "Sleep Quality", "Nighttime Sleep Duration",
-    "Fatigue Level", "Physical Activity Level During Pregnancy", "Depression", "Anxiety", "Intrusive Rumination",
-    "Deliberate Rumination", "Resilience", "Family Support"
-]
 
 # 动态生成输入项
 st.sidebar.header("变量输入区域")
@@ -126,7 +103,7 @@ if st.button("预测"):
             values=shap_values_sample,
             base_values=base_value,
             data=features[0],
-            feature_names=feature_names
+            feature_names=list(feature_ranges.keys())  # 使用 feature_ranges 的键作为特征名称
         ),
         max_display=10  # 限制显示的特征数量
     )
