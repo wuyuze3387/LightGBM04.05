@@ -108,7 +108,7 @@ if st.button("预测"):
     shap_values_sample = shap_values[0]
 
     # 创建SHAP瀑布图，确保中文显示
-    plt.figure(figsize=(10, 6))  # 设置图形尺寸为16x6英寸
+    plt.figure(figsize=(6, 6))  # 设置图形尺寸为6x6英寸
     shap.waterfall_plot(
         shap.Explanation(
             values=shap_values_sample,
