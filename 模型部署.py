@@ -120,5 +120,5 @@ if st.button("预测"):
     )
 
     # 保存SHAP瀑布图并展示
-    plt.savefig("shap_waterfall_plot.png", bbox_inches='tight', dpi=600)
+    plt.savefig("shap_waterfall_plot.png", bbox_inches='tight', dpi=800)
     st.image("shap_waterfall_plot.png")
