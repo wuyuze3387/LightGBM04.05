@@ -93,6 +93,9 @@ if st.button("预测"):
     base_value = explainer.expected_value
     shap_values_sample = shap_values[0]
 
+    # 更新matplotlib字体设置，确保SHAP力图使用正确的字体
+    plt.rcParams.update({'font.size': 10, 'font.family': 'Microsoft YaHei'})
+
     # 创建SHAP力图，确保中文显示
     plt.figure(figsize=(20, 6))  # 设置图形尺寸为20x6英寸
     shap.force_plot(
